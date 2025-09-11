@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MULTIFLOR - Sistema de Vendas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --secondary: #6c757d;
+            --success: #198754;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #0dcaf0;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .sidebar {
+            min-height: 100vh;
+            background-color: var(--dark);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.8rem 1rem;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar .nav-link:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .sidebar .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .main-content {
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+        
+        .card-dashboard {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card-dashboard:hover {
+            transform: translateY(-5px);
+        }
+        
+        .login-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .login-card {
+            width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .table-responsive {
+            max-height: 500px;
+        }
+        
+        .logo-container {
+            padding: 20px;
+            text-align: center;
+            background-color: white;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .logo-placeholder {
+            width: 180px;
+            height: 80px;
+            background-color: #0d6efd;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="login-page" class="login-container">
+        <div class="login-card card">
+            <div class="card-body p-5">
+                <div class="logo-placeholder mb-4">
+                    MULTIFLOR LDA
+                </div>
+                <h3 class="text-center mb-4">Sistema de Vendas</h3>
+                <form id="login-form">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Usuário</label>
+                        <input type="text" class="form-control" id="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistema Principal -->
+    <div id="app" class="d-none">
+        <div class="d-flex">
+            <!-- Sidebar -->
+            <div class="sidebar" style="width: 250px;">
+                <div class="logo-container">
+                    <div class="logo-placeholder">
+                        MULTIFLOR LDA
+                    </div>
+                </div>
+                <ul class="nav flex-column mt-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="products">
+                            <i class="fas fa-box me-2"></i> Produtos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="clients">
+                            <i class="fas fa-users me-2"></i> Clientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="orders">
+                            <i class="fas fa-file-invoice me-2"></i> Nova Ordem
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-section="invoices">
+                            <i class="fas fa-receipt me-2"></i> Faturas
+                        </a>
+                    </li>
+                    <li class="nav-item" id="admin-menu" style="display: none;">
+                        <a class="nav-link" href="#" data-section="admin">
+                            <i class="fas fa-cog me-2"></i> Administração
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link text-danger" href="#" id="logout-btn">
+                            <i class="fas fa-sign-out-alt me-2"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Conteúdo Principal -->
+            <div class="main-content">
+                <!-- Dashboard -->
+                <div id="dashboard-section">
+                    <h2 class="mb-4">Dashboard</h2>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card card-dashboard bg-primary text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Faturas Pendentes</h5>
+                                    <h2 class="card-text" id="pending-invoices-count">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card card-dashboard bg-warning text-dark">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pedidos Pendentes</h5>
+                                    <h2 class="card-text" id="pending-orders-count">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card card-dashboard bg-success text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pedidos Realizados</h5>
+                                    <h2 class="card-text" id="completed-orders-count">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h5 class="mb-0">Faturas de Pagamento Pendente</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="pending-invoices-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nº Fatura</th>
+                                                    <th>Cliente</th>
+                                                    <th>Data</th>
+                                                    <th>Valor</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Conteúdo dinâmico -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outras seções (Produtos, Clientes, etc.) serão implementadas aqui -->
+                <div id="products-section" class="d-none">
+                    <!-- Conteúdo da seção de produtos -->
+                </div>
+
+                <div id="clients-section" class="d-none">
+                    <!-- Conteúdo da seção de clientes -->
+                </div>
+
+                <div id="orders-section" class="d-none">
+                    <!-- Conteúdo da seção de ordens -->
+                </div>
+
+                <div id="invoices-section" class="d-none">
+                    <!-- Conteúdo da seção de faturas -->
+                </div>
+
+                <div id="admin-section" class="d-none">
+                    <!-- Conteúdo da seção de administração -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de banco de dados simulado usando localStorage
+        const Database = {
+            init: function() {
+                if (!localStorage.getItem('multiflor_users')) {
+                    const defaultUsers = [
+                        { id: 1, username: 'admin', password: 'admin', role: 'admin', name: 'Administrador' },
+                        { id: 2, username: 'manag', password: 'manag', role: 'manager', name: 'Gerente' }
+                    ];
+                    localStorage.setItem('multiflor_users', JSON.stringify(defaultUsers));
+                }
+
+                if (!localStorage.getItem('multiflor_sellers')) {
+                    localStorage.setItem('multiflor_sellers', JSON.stringify([]));
+                }
+
+                if (!localStorage.getItem('multiflor_products')) {
+                    localStorage.setItem('multiflor_products', JSON.stringify([]));
+                }
+
+                if (!localStorage.getItem('multiflor_clients')) {
+                    localStorage.setItem('multiflor_clients', JSON.stringify([]));
+                }
+
+                if (!localStorage.getItem('multiflor_invoices')) {
+                    localStorage.setItem('multiflor_invoices', JSON.stringify([]));
+                }
+            },
+
+            getUsers: function() {
+                return JSON.parse(localStorage.getItem('multiflor_users') || '[]');
+            },
+
+            getSellers: function() {
+                return JSON.parse(localStorage.getItem('multiflor_sellers') || '[]');
+            },
+
+            getProducts: function() {
+                return JSON.parse(localStorage.getItem('multiflor_products') || '[]');
+            },
+
+            getClients: function() {
+                return JSON.parse(localStorage.getItem('multiflor_clients') || '[]');
+            },
+
+            getInvoices: function() {
+                return JSON.parse(localStorage.getItem('multiflor_invoices') || '[]');
+            },
+
+            saveUsers: function(users) {
+                localStorage.setItem('multiflor_users', JSON.stringify(users));
+            },
+
+            saveSellers: function(sellers) {
+                localStorage.setItem('multiflor_sellers', JSON.stringify(sellers));
+            },
+
+            saveProducts: function(products) {
+                localStorage.setItem('multiflor_products', JSON.stringify(products));
+            },
+
+            saveClients: function(clients) {
+                localStorage.setItem('multiflor_clients', JSON.stringify(clients));
+            },
+
+            saveInvoices: function(invoices) {
+                localStorage.setItem('multiflor_invoices', JSON.stringify(invoices));
+            }
+        };
+
+        // Sistema de autenticação
+        const Auth = {
+            currentUser: null,
+
+            login: function(username, password) {
+                const users = Database.getUsers();
+                const user = users.find(u => u.username === username && u.password === password);
+                
+                if (user) {
+                    this.currentUser = user;
+                    return true;
+                }
+                
+                // Verificar vendedores
+                const sellers = Database.getSellers();
+                const seller = sellers.find(s => s.username === username && s.password === password);
+                
+                if (seller) {
+                    this.currentUser = { ...seller, role: 'seller' };
+                    return true;
+                }
+                
+                return false;
+            },
+
+            logout: function() {
+                this.currentUser = null;
+            },
+
+            isAdmin: function() {
+                return this.currentUser && this.currentUser.role === 'admin';
+            },
+
+            isManager: function() {
+                return this.currentUser && (this.currentUser.role === 'manager' || this.currentUser.role === 'admin');
+            },
+
+            isSeller: function() {
+                return this.currentUser && this.currentUser.role === 'seller';
+            }
+        };
+
+        // Sistema principal da aplicação
+        const App = {
+            init: function() {
+                Database.init();
+                this.bindEvents();
+            },
+
+            bindEvents: function() {
+                // Login form
+                document.getElementById('login-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleLogin();
+                });
+
+                // Logout button
+                document.getElementById('logout-btn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.handleLogout();
+                });
+
+                // Navigation links
+                document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.showSection(link.getAttribute('data-section'));
+                    });
+                });
+            },
+
+            handleLogin: function() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if (Auth.login(username, password)) {
+                    document.getElementById('login-page').classList.add('d-none');
+                    document.getElementById('app').classList.remove('d-none');
+                    
+                    // Mostrar/ocultar menu de admin baseado no role
+                    if (Auth.isAdmin() || Auth.isManager()) {
+                        document.getElementById('admin-menu').style.display = 'block';
+                    }
+                    
+                    this.updateDashboard();
+                } else {
+                    alert('Credenciais inválidas!');
+                }
+            },
+
+            handleLogout: function() {
+                Auth.logout();
+                document.getElementById('login-page').classList.remove('d-none');
+                document.getElementById('app').classList.add('d-none');
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            },
+
+            showSection: function(sectionId) {
+                // Ocultar todas as seções
+                document.querySelectorAll('[id$="-section"]').forEach(section => {
+                    section.classList.add('d-none');
+                });
+                
+                // Mostrar a seção selecionada
+                document.getElementById(`${sectionId}-section`).classList.remove('d-none');
+                
+                // Atualizar navegação ativa
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active');
+                
+                // Atualizar conteúdo da seção se necessário
+                if (sectionId === 'dashboard') {
+                    this.updateDashboard();
+                }
+            },
+
+            updateDashboard: function() {
+                const invoices = Database.getInvoices();
+                
+                // Contar faturas por status
+                const pendingInvoices = invoices.filter(inv => inv.status === 'pending');
+                const pendingOrders = invoices.filter(inv => inv.status === 'order_pending');
+                const completedOrders = invoices.filter(inv => inv.status === 'completed');
+                
+                // Atualizar contadores
+                document.getElementById('pending-invoices-count').textContent = pendingInvoices.length;
+                document.getElementById('pending-orders-count').textContent = pendingOrders.length;
+                document.getElementById('completed-orders-count').textContent = completedOrders.length;
+                
+                // Atualizar tabela de faturas pendentes
+                const tableBody = document.querySelector('#pending-invoices-table tbody');
+                tableBody.innerHTML = '';
+                
+                pendingInvoices.forEach(invoice => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${invoice.id}</td>
+                        <td>${invoice.clientName}</td>
+                        <td>${new Date(invoice.date).toLocaleDateString()}</td>
+                        <td>${invoice.total.toFixed(2)} MT</td>
+                        <td>
+                            <button class="btn btn-sm btn-success mark-paid-btn" data-id="${invoice.id}">
+                                <i class="fas fa-check"></i> Pago
+                            </button>
+                            <button class="btn btn-sm btn-warning mark-pending-btn" data-id="${invoice.id}">
+                                <i class="fas fa-clock"></i> Pendente
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-invoice-btn" data-id="${invoice.id}">
+                                <i class="fas fa-trash"></i> Excluir
+                            </button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+                
+                // Adicionar event listeners aos botões
+                document.querySelectorAll('.mark-paid-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.markInvoiceAsPaid(btn.getAttribute('data-id')));
+                });
+                
+                document.querySelectorAll('.mark-pending-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.markInvoiceAsPending(btn.getAttribute('data-id')));
+                });
+                
+                document.querySelectorAll('.delete-invoice-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.deleteInvoice(btn.getAttribute('data-id')));
+                });
+            },
+
+            markInvoiceAsPaid: function(invoiceId) {
+                const invoices = Database.getInvoices();
+                const invoiceIndex = invoices.findIndex(inv => inv.id === invoiceId);
+                
+                if (invoiceIndex !== -1) {
+                    invoices[invoiceIndex].status = 'completed';
+                    Database.saveInvoices(invoices);
+                    this.updateDashboard();
+                    alert('Fatura marcada como paga!');
+                }
+            },
+
+            markInvoiceAsPending: function(invoiceId) {
+                const invoices = Database.getInvoices();
+                const invoiceIndex = invoices.findIndex(inv => inv.id === invoiceId);
+                
+                if (invoiceIndex !== -1) {
+                    invoices[invoiceIndex].status = 'order_pending';
+                    Database.saveInvoices(invoices);
+                    this.updateDashboard();
+                    alert('Fatura marcada como pedido pendente!');
+                }
+            },
+
+            deleteInvoice: function(invoiceId) {
+                if (confirm('Tem certeza que deseja excluir esta fatura?')) {
+                    const invoices = Database.getInvoices();
+                    const updatedInvoices = invoices.filter(inv => inv.id !== invoiceId);
+                    Database.saveInvoices(updatedInvoices);
+                    this.updateDashboard();
+                    alert('Fatura excluída com sucesso!');
+                }
+            },
+
+            generateInvoiceId: function() {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                
+                const invoices = Database.getInvoices();
+                const todayInvoices = invoices.filter(inv => {
+                    const invDate = new Date(inv.date);
+                    return invDate.getFullYear() === year && 
+                           invDate.getMonth() + 1 === parseInt(month) && 
+                           invDate.getDate() === parseInt(day);
+                });
+                
+                const sequence = String(todayInvoices.length + 1).padStart(3, '0');
+                return `MF${year}${month}${day}${sequence}`;
+            }
+        };
+
+        // Inicializar a aplicação quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            App.init();
+        });
+    </script>
+</body>
+</html>
