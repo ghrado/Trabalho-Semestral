@@ -5,6 +5,7 @@
 package Telas;
 
 import Controller.ControleGestorService;
+import Controller.StockService;
 import Controller.VendasService;
 import Model.Usuario;
 
@@ -16,18 +17,20 @@ public class TelaVendedor extends javax.swing.JFrame {
     private Usuario usuarioLogado;
     private ControleGestorService controleGestorService;
     private VendasService vendasService;
+    private StockService stockService;
     
     public TelaVendedor(Usuario usuario, ControleGestorService controleGestorService) {
         this.usuarioLogado = usuario;
         this.controleGestorService = controleGestorService;
         this.vendasService = new VendasService();
+        this.stockService = new StockService();
         
         initComponents();
         atualizarInformacoesUsuario();
     }
     
        private void atualizarInformacoesUsuario() {
-        jLabel2.setText("Sistema Online | Usuário: " + usuarioLogado.getNome());
+        jLabel2.setText("Sistema Online | Usuário: " + usuarioLogado.getNome() + " (" + usuarioLogado.getId() + ")");
     }
    
     
@@ -121,7 +124,9 @@ public class TelaVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesBtnActionPerformed
-        // TODO add your handling code here:
+        Telas.vendas.TelaVendas telaVendas = new Telas.vendas.TelaVendas(usuarioLogado, vendasService, stockService);
+        telaVendas.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_salesBtnActionPerformed
 
     /**

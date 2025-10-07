@@ -43,7 +43,7 @@ public class ControleGestorService implements Gerenciavel<Usuario> {
     
     private void criarAdministradorPadrao() {
         Administrador admin = new Administrador("Administrador", "Sistema", "000000000", 
-                                               "admin@sistema.com", "Sistema");
+                                               "000000000", "admin@sistema.com");
         usuarios.put(admin.getId(), admin);
         usuariosVector.add(admin);
         usuariosArrayList.add(admin);

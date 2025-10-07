@@ -38,6 +38,16 @@ public class GeradorID {
         contadores.put("VN", 1); // Vendedor
         contadores.put("ORDEM", 1); // Ordem
         
+        contadores.put("VF", 1);  // Varao
+        contadores.put("CAN", 1); // Canalizacao
+        contadores.put("ELE", 1); // Eletrico
+        contadores.put("BAR", 1); // Barrote
+        contadores.put("PRA", 1); // Prancha
+        contadores.put("PRE", 1); // Prego
+        contadores.put("FER", 1); // Ferramentas
+        contadores.put("CN", 1);  // Cimento
+        contadores.put("DIV", 1); // Diversos
+        
         // Inicializar stacks para IDs reutilizáveis
         idsReutilizaveis.put("CS", new Stack<>());
         idsReutilizaveis.put("CE", new Stack<>());
@@ -45,6 +55,16 @@ public class GeradorID {
         idsReutilizaveis.put("CX", new Stack<>());
         idsReutilizaveis.put("VN", new Stack<>());
         idsReutilizaveis.put("ORDEM", new Stack<>());
+        
+        idsReutilizaveis.put("VF", new Stack<>());
+        idsReutilizaveis.put("CAN", new Stack<>());
+        idsReutilizaveis.put("ELE", new Stack<>());
+        idsReutilizaveis.put("BAR", new Stack<>());
+        idsReutilizaveis.put("PRA", new Stack<>());
+        idsReutilizaveis.put("PRE", new Stack<>());
+        idsReutilizaveis.put("FER", new Stack<>());
+        idsReutilizaveis.put("CN", new Stack<>());
+        idsReutilizaveis.put("DIV", new Stack<>());
     }
     
     /**
@@ -67,12 +87,21 @@ public class GeradorID {
         String novoId;
         if (tipo.equals("ORDEM")) {
             novoId = String.format("%04d", contador);
+        } else if (isProdutoClass(tipo)) {
+            // Product classes use 2 digits: VF00, CAN00, etc.
+            novoId = tipo + String.format("%02d", contador);
         } else {
             novoId = tipo + String.format("%04d", contador);
         }
         
         contadores.put(tipo, contador + 1);
         return novoId;
+    }
+    
+    private boolean isProdutoClass(String tipo) {
+        return tipo.equals("VF") || tipo.equals("CAN") || tipo.equals("ELE") || 
+               tipo.equals("BAR") || tipo.equals("PRA") || tipo.equals("PRE") || 
+               tipo.equals("FER") || tipo.equals("CN") || tipo.equals("DIV");
     }
     
     /**
@@ -116,6 +145,20 @@ public class GeradorID {
             if (!Character.isDigit(c)) return false;
             
             return validarFormatoIdRecursivo(id, tipo, posicao + 1);
+        } else if (isProdutoClass(tipo)) {
+            String prefixoEsperado = tipo;
+            if (id.length() != prefixoEsperado.length() + 2) return false;
+            
+            if (posicao < prefixoEsperado.length()) {
+                if (id.charAt(posicao) != prefixoEsperado.charAt(posicao)) return false;
+                return validarFormatoIdRecursivo(id, tipo, posicao + 1);
+            } else if (posicao < id.length()) {
+                char c = id.charAt(posicao);
+                if (!Character.isDigit(c)) return false;
+                return validarFormatoIdRecursivo(id, tipo, posicao + 1);
+            }
+            
+            return true;
         } else {
             // Para outros tipos, deve começar com o prefixo + 4 dígitos
             String prefixoEsperado = tipo;
