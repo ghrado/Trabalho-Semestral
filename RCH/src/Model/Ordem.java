@@ -15,6 +15,7 @@ public class Ordem extends UniversalObject {
     private String codigo;
     private String clienteId;
     private String clienteNome;
+    private Cliente cliente;
     private String vendedorId;
     private String vendedorNome;
     private List<ItemOrdem> itens;
@@ -42,6 +43,15 @@ public class Ordem extends UniversalObject {
         this();
         this.clienteId = clienteId;
         this.clienteNome = clienteNome;
+        this.vendedorId = vendedorId;
+        this.vendedorNome = vendedorNome;
+    }
+    
+    public Ordem(Cliente cliente, String vendedorId, String vendedorNome) {
+        this();
+        this.cliente = cliente;
+        this.clienteId = cliente.getId();
+        this.clienteNome = cliente.getNome();
         this.vendedorId = vendedorId;
         this.vendedorNome = vendedorNome;
     }
@@ -99,6 +109,15 @@ public class Ordem extends UniversalObject {
     
     public String getClienteNome() { return clienteNome; }
     public void setClienteNome(String clienteNome) { this.clienteNome = clienteNome; }
+    
+    public Cliente getCliente() { return cliente; }
+    public void setCliente(Cliente cliente) { 
+        this.cliente = cliente;
+        if (cliente != null) {
+            this.clienteId = cliente.getId();
+            this.clienteNome = cliente.getNome();
+        }
+    }
     
     public String getVendedorId() { return vendedorId; }
     public void setVendedorId(String vendedorId) { this.vendedorId = vendedorId; }

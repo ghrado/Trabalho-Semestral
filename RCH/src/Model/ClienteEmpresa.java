@@ -19,8 +19,7 @@ public class ClienteEmpresa extends Cliente {
         this.tipoCliente = TipoCliente.EMPRESA;
     }
     
-    public ClienteEmpresa(String nome, String nuit, String telefone, 
-                         String email, String endereco) {
+    public ClienteEmpresa(String nome, String telefone, String email, String endereco, String nuit) {
         super(nome, telefone, email, endereco, TipoCliente.EMPRESA);
         this.nuit = nuit;
     }

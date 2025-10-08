@@ -48,20 +48,23 @@ public class TelaStockOpcoes extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        CadastrarProdutoBtn = new javax.swing.JButton();
+        GerenciarProdutoBtn = new javax.swing.JButton();
+        EntradaDeProdutosBtn = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        BuscarProdutoBtn = new javax.swing.JButton();
+        VoltarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel1.setText("Sistema Online | Usuario:");
+
+        jLabel4.setText("Data:  | Hora: ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -70,30 +73,34 @@ public class TelaStockOpcoes extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(124, 124, 124))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Quantidade Atual"
+                "ID", "Nome", "Descricao", "Qnt. Min", "Qnt. Max", "Quantidade Atual"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -101,34 +108,39 @@ public class TelaStockOpcoes extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-        }
 
-        jButton1.setText("Cadastrar Produto");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CadastrarProdutoBtn.setText("Cadastrar Produto");
+        CadastrarProdutoBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CadastrarProdutoBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Gerenciar Produto");
-
-        jButton3.setText("Entrada de Produtos");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        GerenciarProdutoBtn.setText("Gerenciar Produto");
+        GerenciarProdutoBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                GerenciarProdutoBtnActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Buscar Produto");
-
-        jButton5.setText("Voltar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        EntradaDeProdutosBtn.setText("Entrada de Produtos");
+        EntradaDeProdutosBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                EntradaDeProdutosBtnActionPerformed(evt);
+            }
+        });
+
+        BuscarProdutoBtn.setText("Buscar Produto");
+        BuscarProdutoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarProdutoBtnActionPerformed(evt);
+            }
+        });
+
+        VoltarBtn.setText("Voltar");
+        VoltarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarBtnActionPerformed(evt);
             }
         });
 
@@ -142,12 +154,12 @@ public class TelaStockOpcoes extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(EntradaDeProdutosBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GerenciarProdutoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CadastrarProdutoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BuscarProdutoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(VoltarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
@@ -161,15 +173,15 @@ public class TelaStockOpcoes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
+                        .addComponent(BuscarProdutoBtn)
                         .addGap(17, 17, 17)
-                        .addComponent(jButton1)
+                        .addComponent(CadastrarProdutoBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(GerenciarProdutoBtn)
                         .addGap(30, 30, 30)
-                        .addComponent(jButton3)
+                        .addComponent(EntradaDeProdutosBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
+                        .addComponent(VoltarBtn)
                         .addGap(53, 53, 53)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -177,17 +189,72 @@ public class TelaStockOpcoes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CadastrarProdutoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarProdutoBtnActionPerformed
         cadastrarProduto();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CadastrarProdutoBtnActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void VoltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarBtnActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_VoltarBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void EntradaDeProdutosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradaDeProdutosBtnActionPerformed
         entradaProdutos();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_EntradaDeProdutosBtnActionPerformed
+
+    private void GerenciarProdutoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerenciarProdutoBtnActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um produto na tabela!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String codigo = (String) tableModel.getValueAt(selectedRow, 0);
+        Produto produto = stockService.buscarPorCodigo(codigo);
+        
+        if (produto != null) {
+            String[] opcoes = {"Editar", "Excluir", "Cancelar"};
+            int escolha = JOptionPane.showOptionDialog(this, 
+                "O que deseja fazer com o produto " + produto.getDescricao() + "?", 
+                "Gerenciar Produto",
+                JOptionPane.DEFAULT_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, opcoes, opcoes[2]);
+            
+            if (escolha == 0) {
+                editarProduto(produto);
+            } else if (escolha == 1) {
+                excluirProduto(produto);
+            }
+        }
+    }//GEN-LAST:event_GerenciarProdutoBtnActionPerformed
+
+    private void BuscarProdutoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarProdutoBtnActionPerformed
+        String termo = jTextField1.getText().trim();
+        
+        if (termo.isEmpty()) {
+            carregarProdutos();
+            return;
+        }
+        
+        List<Produto> produtos = stockService.buscarProduto(termo);
+        tableModel.setRowCount(0);
+        
+        for (Produto produto : produtos) {
+            if (produto.isAtivo()) {
+                Object[] row = {
+                    produto.getCodigo(),
+                    produto.getDescricao(),
+                    produto.getQuantidadeStock()
+                };
+                tableModel.addRow(row);
+            }
+        }
+        
+        if (tableModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Nenhum produto encontrado!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            carregarProdutos();
+        }
+    }//GEN-LAST:event_BuscarProdutoBtnActionPerformed
     
     private void cadastrarProduto() {
         String[] classes = {
@@ -210,17 +277,48 @@ public class TelaStockOpcoes extends javax.swing.JFrame {
         javax.swing.JTextField stockMinimoField = new javax.swing.JTextField();
         javax.swing.JTextField stockMaximoField = new javax.swing.JTextField();
         
-        Object[] message = {
-            "Classe de Produto:", classeCombo,
-            "Nome:", nomeField,
-            "Descrição:", descricaoField,
-            "Preço:", precoField,
-            "Quantidade Inicial:", quantidadeField,
-            "Stock Mínimo:", stockMinimoField,
-            "Stock Máximo:", stockMaximoField
-        };
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         
-        int option = JOptionPane.showConfirmDialog(this, message, "Cadastrar Produto", JOptionPane.OK_CANCEL_OPTION);
+        gbc.gridx = 0; gbc.gridy = 0;
+        panel.add(new javax.swing.JLabel("Classe de Produto:"), gbc);
+        gbc.gridx = 1;
+        panel.add(classeCombo, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 1;
+        panel.add(new javax.swing.JLabel("Nome:"), gbc);
+        gbc.gridx = 1;
+        panel.add(nomeField, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 2;
+        panel.add(new javax.swing.JLabel("Descrição:"), gbc);
+        gbc.gridx = 1;
+        panel.add(descricaoField, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 3;
+        panel.add(new javax.swing.JLabel("Preço:"), gbc);
+        gbc.gridx = 1;
+        panel.add(precoField, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 4;
+        panel.add(new javax.swing.JLabel("Quantidade Inicial:"), gbc);
+        gbc.gridx = 1;
+        panel.add(quantidadeField, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 5;
+        panel.add(new javax.swing.JLabel("Stock Mínimo:"), gbc);
+        gbc.gridx = 1;
+        panel.add(stockMinimoField, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 6;
+        panel.add(new javax.swing.JLabel("Stock Máximo:"), gbc);
+        gbc.gridx = 1;
+        panel.add(stockMaximoField, gbc);
+        
+        int option = JOptionPane.showConfirmDialog(this, panel, "Cadastrar Produto", JOptionPane.OK_CANCEL_OPTION);
         
         if (option == JOptionPane.OK_OPTION) {
             String nome = nomeField.getText().trim();
@@ -257,6 +355,7 @@ public class TelaStockOpcoes extends javax.swing.JFrame {
                 String codigo = geradorID.gerarID(prefixo);
                 
                 Produto produto = new Produto(codigo, nome, preco, quantidade);
+                produto.setDescricao(descricao);
                 produto.setStockMinimo(stockMinimo);
                 produto.setStockMaximo(stockMaximo);
                 produto.setCategoria(classeSelecionada);
@@ -345,13 +444,97 @@ public class TelaStockOpcoes extends javax.swing.JFrame {
         }
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private String extrairPrefixo(String categoria) {
+        if (categoria.contains("(") && categoria.contains(")")) {
+            int inicio = categoria.indexOf("(") + 1;
+            int fim = categoria.indexOf(")");
+            return categoria.substring(inicio, fim);
+        }
+        return "PRD";
+    }
+    
+    private void editarProduto(Produto produto) {
+        javax.swing.JTextField nomeField = new javax.swing.JTextField(produto.getDescricao());
+        javax.swing.JTextField precoField = new javax.swing.JTextField(String.valueOf(produto.getPreco()));
+        javax.swing.JTextField stockMinimoField = new javax.swing.JTextField(String.valueOf(produto.getStockMinimo()));
+        javax.swing.JTextField stockMaximoField = new javax.swing.JTextField(String.valueOf(produto.getStockMaximo()));
+        
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        
+        gbc.gridx = 0; gbc.gridy = 0;
+        panel.add(new javax.swing.JLabel("Nome:"), gbc);
+        gbc.gridx = 1;
+        panel.add(nomeField, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 1;
+        panel.add(new javax.swing.JLabel("Preço:"), gbc);
+        gbc.gridx = 1;
+        panel.add(precoField, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 2;
+        panel.add(new javax.swing.JLabel("Stock Mínimo:"), gbc);
+        gbc.gridx = 1;
+        panel.add(stockMinimoField, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 3;
+        panel.add(new javax.swing.JLabel("Stock Máximo:"), gbc);
+        gbc.gridx = 1;
+        panel.add(stockMaximoField, gbc);
+        
+        int option = JOptionPane.showConfirmDialog(this, panel, "Editar Produto", JOptionPane.OK_CANCEL_OPTION);
+        
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                String nome = nomeField.getText().trim();
+                double preco = Double.parseDouble(precoField.getText().trim());
+                int stockMinimo = Integer.parseInt(stockMinimoField.getText().trim());
+                int stockMaximo = Integer.parseInt(stockMaximoField.getText().trim());
+                
+                produto.setDescricao(nome);
+                produto.setPreco(preco);
+                produto.setStockMinimo(stockMinimo);
+                produto.setStockMaximo(stockMaximo);
+                
+                if (stockService.atualizar(produto)) {
+                    JOptionPane.showMessageDialog(this, "Produto atualizado com sucesso!");
+                    carregarProdutos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao atualizar produto!", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Valores inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    private void excluirProduto(Produto produto) {
+        int confirmacao = JOptionPane.showConfirmDialog(this, 
+            "Tem certeza que deseja excluir o produto " + produto.getDescricao() + "?", 
+            "Confirmar Exclusão", 
+            JOptionPane.YES_NO_OPTION);
+        
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            if (stockService.excluir(produto.getId())) {
+                JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
+                carregarProdutos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir produto!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+// Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BuscarProdutoBtn;
+    private javax.swing.JButton CadastrarProdutoBtn;
+    private javax.swing.JButton EntradaDeProdutosBtn;
+    private javax.swing.JButton GerenciarProdutoBtn;
+    private javax.swing.JButton VoltarBtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

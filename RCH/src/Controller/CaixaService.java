@@ -4,8 +4,10 @@
  */
 package Controller;
 
-import Model.Fatura;
 import Model.Ordem;
+import Model.Pagamento;
+import Util.AuditService;
+import Util.GeradorID;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,207 +20,175 @@ import java.util.stream.Collectors;
 /**
  *
  * @author massas
+ * 
+ * Classe CaixaService - Gerencia operações de caixa e pagamentos
  */
 public class CaixaService {
-    private Map<String, Fatura> faturas;
-    private Vector<Fatura> faturasVector;
-    private ArrayList<Fatura> faturasArrayList;
-    private Map<Fatura.TipoPagamento, Double> lancamentosDia;
+    private Map<String, Pagamento> pagamentos;
+    private Vector<Pagamento> pagamentosVector;
+    private GeradorID geradorID;
+    private AuditService auditService;
     private VendasService vendasService;
     
     public CaixaService(VendasService vendasService) {
-        this.faturas = new HashMap<>();
-        this.faturasVector = new Vector<>();
-        this.faturasArrayList = new ArrayList<>();
-        this.lancamentosDia = new HashMap<>();
+        this.pagamentos = new HashMap<>();
+        this.pagamentosVector = new Vector<>();
+        this.geradorID = GeradorID.getInstance();
+        this.auditService = AuditService.getInstance();
         this.vendasService = vendasService;
-        inicializarLancamentos();
-    }
-    
-    private void inicializarLancamentos() {
-        for (Fatura.TipoPagamento tipo : Fatura.TipoPagamento.values()) {
-            lancamentosDia.put(tipo, 0.0);
-        }
     }
     
     /**
-     * Processa uma ordem de pagamento
+     * Processa um pagamento para uma ordem
      */
-    public Fatura processarOrdemPagamento(String codigoOrdem, String caixaId, String caixaNome, 
-                                         Fatura.TipoPagamento tipoPagamento) {
-        Ordem ordem = vendasService.buscarOrdem(codigoOrdem);
-        if (ordem == null || ordem.getStatus() != Ordem.StatusOrdem.PROCESSANDO) {
-            return null;
+    public boolean processarPagamento(String ordemCodigo, Pagamento.TipoPagamento tipoPagamento, 
+                                      double valorPago, String usuarioId) {
+        Ordem ordem = vendasService.buscarOrdem(ordemCodigo);
+        
+        if (ordem == null) {
+            return false;
         }
         
-        // Criar fatura
-        Fatura fatura = new Fatura(
-            ordem.getId(),
-            ordem.getVendedorId(),
-            ordem.getVendedorNome(),
-            caixaId,
-            caixaNome,
-            ordem.getClienteId(),
-            ordem.getClienteNome(),
-            ordem.getValorTotal(),
-            tipoPagamento
-        );
+        if (ordem.getStatus() == Ordem.StatusOrdem.PAGO) {
+            return false; // Ordem já paga
+        }
         
-        // Salvar fatura
-        faturas.put(fatura.getCodigo(), fatura);
-        faturasVector.add(fatura);
-        faturasArrayList.add(fatura);
+        // Criar pagamento
+        String pagamentoId = geradorID.gerarID("PAG");
+        Pagamento pagamento = new Pagamento(pagamentoId, ordemCodigo, tipoPagamento, 
+                                            ordem.getValorTotal(), valorPago, usuarioId);
         
-        // Atualizar lançamentos do dia
-        double valorAtual = lancamentosDia.get(tipoPagamento);
-        lancamentosDia.put(tipoPagamento, valorAtual + fatura.getValorTotal());
+        // Calcular troco
+        double troco = valorPago - ordem.getValorTotal();
+        pagamento.setTroco(troco);
+        
+        // Salvar pagamento
+        pagamentos.put(pagamentoId, pagamento);
+        pagamentosVector.add(pagamento);
         
         // Atualizar status da ordem
         ordem.setStatus(Ordem.StatusOrdem.PAGO);
         
-        return fatura;
-    }
-    
-    /**
-     * Busca fatura por código
-     */
-    public Fatura buscarFatura(String codigo) {
-        return faturas.get(codigo);
-    }
-    
-    /**
-     * Lista todas as faturas
-     */
-    public List<Fatura> listarFaturas() {
-        return new ArrayList<>(faturasArrayList);
-    }
-    
-    /**
-     * Obtém lançamentos de pagamentos do dia
-     */
-    public Map<Fatura.TipoPagamento, Double> getLancamentosDia() {
-        return new HashMap<>(lancamentosDia);
-    }
-    
-    /**
-     * Obtém lançamentos de pagamentos por data
-     */
-    public Map<Fatura.TipoPagamento, Double> getLancamentosPorData(LocalDate data) {
-        Map<Fatura.TipoPagamento, Double> lancamentos = new HashMap<>();
+        // Registrar ação
+        auditService.registrarAcao(usuarioId, "", "PAGAMENTO", "Ordem", ordemCodigo, 
+            "Pagamento processado: " + tipoPagamento + " - Valor: " + valorPago);
         
-        // Inicializar com zeros
-        for (Fatura.TipoPagamento tipo : Fatura.TipoPagamento.values()) {
-            lancamentos.put(tipo, 0.0);
-        }
-        
-        // Somar valores das faturas da data
-        for (Fatura fatura : faturasArrayList) {
-            if (fatura.getDataProcessamento().toLocalDate().equals(data)) {
-                Fatura.TipoPagamento tipo = fatura.getTipoPagamento();
-                double valorAtual = lancamentos.get(tipo);
-                lancamentos.put(tipo, valorAtual + fatura.getValorTotal());
-            }
-        }
-        
-        return lancamentos;
+        return true;
     }
     
     /**
-     * Obtém faturas por período
+     * Busca um pagamento por ID
      */
-    public List<Fatura> getFaturasPorPeriodo(LocalDateTime inicio, LocalDateTime fim) {
-        return faturasArrayList.stream()
-                .filter(f -> f.getDataProcessamento().isAfter(inicio) && 
-                           f.getDataProcessamento().isBefore(fim))
+    public Pagamento buscarPagamento(String id) {
+        return pagamentos.get(id);
+    }
+    
+    /**
+     * Lista todos os pagamentos
+     */
+    public List<Pagamento> listarTodosPagamentos() {
+        return new ArrayList<>(pagamentosVector);
+    }
+    
+    /**
+     * Busca pagamentos por ordem
+     */
+    public List<Pagamento> buscarPagamentosPorOrdem(String ordemCodigo) {
+        return pagamentosVector.stream()
+                .filter(p -> p.getOrdemCodigo().equals(ordemCodigo))
                 .collect(Collectors.toList());
     }
     
     /**
-     * Obtém faturas por tipo de pagamento
+     * Busca pagamentos por data
      */
-    public List<Fatura> getFaturasPorTipoPagamento(Fatura.TipoPagamento tipoPagamento) {
-        return faturasArrayList.stream()
-                .filter(f -> f.getTipoPagamento() == tipoPagamento)
+    public List<Pagamento> buscarPagamentosPorData(LocalDate data) {
+        return pagamentosVector.stream()
+                .filter(p -> p.getDataPagamento().toLocalDate().equals(data))
                 .collect(Collectors.toList());
     }
     
     /**
-     * Obtém faturas por tipo de pagamento e período
+     * Busca pagamentos por período
      */
-    public List<Fatura> getFaturasPorTipoPagamentoEPeriodo(Fatura.TipoPagamento tipoPagamento,
-                                                          LocalDateTime inicio, LocalDateTime fim) {
-        return faturasArrayList.stream()
-                .filter(f -> f.getTipoPagamento() == tipoPagamento &&
-                           f.getDataProcessamento().isAfter(inicio) && 
-                           f.getDataProcessamento().isBefore(fim))
+    public List<Pagamento> buscarPagamentosPorPeriodo(LocalDateTime inicio, LocalDateTime fim) {
+        return pagamentosVector.stream()
+                .filter(p -> !p.getDataPagamento().isBefore(inicio) && 
+                           !p.getDataPagamento().isAfter(fim))
                 .collect(Collectors.toList());
     }
     
     /**
-     * Calcula total de vendas do dia
+     * Busca pagamentos por tipo
      */
-    public double getTotalVendasDia() {
-        return lancamentosDia.values().stream()
-                .mapToDouble(Double::doubleValue)
+    public List<Pagamento> buscarPagamentosPorTipo(Pagamento.TipoPagamento tipo) {
+        return pagamentosVector.stream()
+                .filter(p -> p.getTipoPagamento() == tipo)
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * Calcula total de pagamentos por período
+     */
+    public double calcularTotalPagamentos(LocalDateTime inicio, LocalDateTime fim) {
+        return buscarPagamentosPorPeriodo(inicio, fim).stream()
+                .mapToDouble(Pagamento::getValorTotal)
                 .sum();
     }
     
     /**
-     * Calcula total de vendas por data
+     * Calcula total de pagamentos por tipo e período
      */
-    public double getTotalVendasPorData(LocalDate data) {
-        return getLancamentosPorData(data).values().stream()
-                .mapToDouble(Double::doubleValue)
+    public double calcularTotalPagamentosPorTipo(Pagamento.TipoPagamento tipo, 
+                                                 LocalDateTime inicio, LocalDateTime fim) {
+        return buscarPagamentosPorPeriodo(inicio, fim).stream()
+                .filter(p -> p.getTipoPagamento() == tipo)
+                .mapToDouble(Pagamento::getValorTotal)
                 .sum();
     }
     
     /**
-     * Fecho de caixa - zera os lançamentos do dia e retorna resumo
+     * Gera relatório de caixa para um período
      */
-    public Map<String, Object> fechoCaixa() {
-        Map<String, Object> resumo = new HashMap<>();
-        resumo.put("data", LocalDate.now());
-        resumo.put("totalVendas", getTotalVendasDia());
-        resumo.put("lancamentosPorTipo", new HashMap<>(lancamentosDia));
-        resumo.put("quantidadeFaturas", faturasArrayList.size());
+    public Map<String, Object> gerarRelatorioCaixa(LocalDateTime inicio, LocalDateTime fim) {
+        Map<String, Object> relatorio = new HashMap<>();
         
-        // Zerar lançamentos
-        inicializarLancamentos();
+        List<Pagamento> pagamentosPeriodo = buscarPagamentosPorPeriodo(inicio, fim);
         
-        return resumo;
+        double totalDinheiro = pagamentosPeriodo.stream()
+                .filter(p -> p.getTipoPagamento() == Pagamento.TipoPagamento.DINHEIRO)
+                .mapToDouble(Pagamento::getValorTotal)
+                .sum();
+        
+        double totalCartao = pagamentosPeriodo.stream()
+                .filter(p -> p.getTipoPagamento() == Pagamento.TipoPagamento.CARTAO)
+                .mapToDouble(Pagamento::getValorTotal)
+                .sum();
+        
+        double totalTransferencia = pagamentosPeriodo.stream()
+                .filter(p -> p.getTipoPagamento() == Pagamento.TipoPagamento.TRANSFERENCIA)
+                .mapToDouble(Pagamento::getValorTotal)
+                .sum();
+        
+        double totalGeral = totalDinheiro + totalCartao + totalTransferencia;
+        
+        relatorio.put("totalDinheiro", totalDinheiro);
+        relatorio.put("totalCartao", totalCartao);
+        relatorio.put("totalTransferencia", totalTransferencia);
+        relatorio.put("totalGeral", totalGeral);
+        relatorio.put("quantidadePagamentos", pagamentosPeriodo.size());
+        relatorio.put("pagamentos", pagamentosPeriodo);
+        
+        return relatorio;
     }
     
     /**
-     * Método recursivo para calcular total de vendas por vendedor
+     * Registra ação de caixa
      */
-    public double calcularTotalVendasVendedor(String vendedorId) {
-        return calcularTotalVendasVendedorRecursivo(faturasArrayList, vendedorId, 0);
-    }
-    
-    private double calcularTotalVendasVendedorRecursivo(List<Fatura> faturas, String vendedorId, int index) {
-        if (index >= faturas.size()) {
-            return 0.0;
+    public void registrarAcaoCaixa(String pagamentoId, String acao, String usuarioId, String detalhes) {
+        Pagamento pagamento = buscarPagamento(pagamentoId);
+        if (pagamento != null) {
+            auditService.registrarAcao(usuarioId, "", acao, "Pagamento", pagamentoId, detalhes);
         }
-        
-        Fatura fatura = faturas.get(index);
-        double valorFatura = fatura.getVendedorId().equals(vendedorId) ? fatura.getValorTotal() : 0.0;
-        
-        return valorFatura + calcularTotalVendasVendedorRecursivo(faturas, vendedorId, index + 1);
     }
-    
-    /**
-     * Obtém estatísticas de vendas por caixa
-     */
-    public Map<String, Double> getEstatisticasPorCaixa() {
-        Map<String, Double> estatisticas = new HashMap<>();
-        
-        for (Fatura fatura : faturasArrayList) {
-            String caixaId = fatura.getCaixaId();
-            double valorAtual = estatisticas.getOrDefault(caixaId, 0.0);
-            estatisticas.put(caixaId, valorAtual + fatura.getValorTotal());
-        }
-        
-        return estatisticas;
-    }
-    
 }

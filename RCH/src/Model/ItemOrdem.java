@@ -14,6 +14,7 @@ public class ItemOrdem extends UniversalObject {
     private String produtoId;
     private String produtoCodigo;
     private String produtoDescricao;
+    private Produto produto;
     private int quantidade;
     private double precoUnitario;
     private double subtotal;
@@ -33,6 +34,17 @@ public class ItemOrdem extends UniversalObject {
         this.subtotal = quantidade * precoUnitario;
     }
     
+    public ItemOrdem(Produto produto, int quantidade) {
+        super();
+        this.produto = produto;
+        this.produtoId = produto.getId();
+        this.produtoCodigo = produto.getCodigo();
+        this.produtoDescricao = produto.getDescricao();
+        this.quantidade = quantidade;
+        this.precoUnitario = produto.getPreco();
+        this.subtotal = quantidade * precoUnitario;
+    }
+    
     /**
      * Recalcula o subtotal
      */
@@ -49,6 +61,18 @@ public class ItemOrdem extends UniversalObject {
     
     public String getProdutoDescricao() { return produtoDescricao; }
     public void setProdutoDescricao(String produtoDescricao) { this.produtoDescricao = produtoDescricao; }
+    
+    public Produto getProduto() { return produto; }
+    public void setProduto(Produto produto) { 
+        this.produto = produto;
+        if (produto != null) {
+            this.produtoId = produto.getId();
+            this.produtoCodigo = produto.getCodigo();
+            this.produtoDescricao = produto.getDescricao();
+            this.precoUnitario = produto.getPreco();
+            calcularSubtotal();
+        }
+    }
     
     public int getQuantidade() { return quantidade; }
     public void setQuantidade(int quantidade) { 

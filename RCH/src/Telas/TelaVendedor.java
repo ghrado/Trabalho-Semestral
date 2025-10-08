@@ -29,11 +29,10 @@ public class TelaVendedor extends javax.swing.JFrame {
         atualizarInformacoesUsuario();
     }
     
-       private void atualizarInformacoesUsuario() {
+    private void atualizarInformacoesUsuario() {
         jLabel2.setText("Sistema Online | Usuário: " + usuarioLogado.getNome() + " (" + usuarioLogado.getId() + ")");
     }
    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

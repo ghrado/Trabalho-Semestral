@@ -60,6 +60,7 @@ public class TelaOrdem extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -70,6 +71,9 @@ public class TelaOrdem extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,6 +94,8 @@ public class TelaOrdem extends javax.swing.JFrame {
 
         jLabel1.setText("Sistema Online | Usuario:");
 
+        jLabel4.setText("Data:  | Hora: ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,26 +103,30 @@ public class TelaOrdem extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(106, 106, 106))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
                 .addContainerGap())
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID Produto", "Nome produto", "Quantidade Produdo"
+                "ID Produto", "Nome produto", "Quantidade Produdo", "Preço"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -142,7 +152,17 @@ public class TelaOrdem extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Buscar Cliente");
+        jButton5.setText("Buscar ");
+
+        jLabel3.setText("Produto:");
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,14 +171,22 @@ public class TelaOrdem extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTextField2)))
-                    .addComponent(jButton5))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField2)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton5)
+                            .addComponent(jButton6))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -175,15 +203,24 @@ public class TelaOrdem extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton5))
-                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton1)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton6))
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
@@ -206,15 +243,21 @@ public class TelaOrdem extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
     
     private void configurarBotoes() {
         jButton5.addActionListener(e -> buscarCliente());
+        
+        jButton6.addActionListener(e -> buscarProduto());
         
         // Gerar Cotação button
         jButton2.addActionListener(e -> gerarCotacao());
         
         // Gerar Ordem/Fatura button
-        jButton3.addActionListener(e -> gerarFatura());
+        jButton3.addActionListener(e -> gerarOrdem());
         
         // Voltar button
         jButton4.addActionListener(e -> {
@@ -297,7 +340,7 @@ public class TelaOrdem extends javax.swing.JFrame {
             return;
         }
         
-        String arquivo = PDFGenerator.gerarCotacao(ordem);
+        String arquivo = PDFGenerator.gerarCotacao(ordem, usuarioLogado);
         
         if (arquivo != null) {
             JOptionPane.showMessageDialog(this, 
@@ -312,33 +355,42 @@ public class TelaOrdem extends javax.swing.JFrame {
         }
     }
     
-    private void gerarFatura() {
-        String codigo = jTextField1.getText().trim();
-        
-        if (codigo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Digite o código da ordem!", "Aviso", JOptionPane.WARNING_MESSAGE);
+    private void gerarOrdem() {
+        if (clienteSelecionado == null) {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente primeiro!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        Ordem ordem = vendasService.buscarOrdem(codigo);
-        
-        if (ordem == null) {
-            JOptionPane.showMessageDialog(this, "Ordem não encontrada!", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (itensOrdem.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Adicione pelo menos um produto à ordem!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        String arquivo = PDFGenerator.gerarFatura(ordem);
+        // Criar nova ordem
+        Ordem ordem = new Ordem(clienteSelecionado, usuarioLogado.getId(), usuarioLogado.getNome());
+        ordem.setTipo(Ordem.TipoOrdem.VENDA);
         
-        if (arquivo != null) {
+        // Adicionar itens
+        for (ItemOrdem item : itensOrdem) {
+            ordem.adicionarItem(item);
+        }
+        
+        // Salvar ordem
+        if (vendasService.criarOrdem(ordem)) {
+            vendasService.registrarAcaoOrdem(ordem.getCodigo(), "CRIAR", usuarioLogado.getId(), 
+                "Ordem criada com " + itensOrdem.size() + " itens");
+            
             JOptionPane.showMessageDialog(this, 
-                "Fatura gerada com sucesso!\nArquivo salvo em: " + arquivo, 
+                "Ordem criada com sucesso!\n" +
+                "Código: " + ordem.getCodigo() + "\n" +
+                "Total: " + String.format("%.2f MT", ordem.getValorTotal()), 
                 "Sucesso", 
                 JOptionPane.INFORMATION_MESSAGE);
+            
+            // Limpar formulário
+            limparFormulario();
         } else {
-            JOptionPane.showMessageDialog(this, 
-                "Erro ao gerar fatura!", 
-                "Erro", 
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao criar ordem!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -445,14 +497,15 @@ public class TelaOrdem extends javax.swing.JFrame {
         }
     }
     
-    private void adicionarProduto() {
-        String termo = JOptionPane.showInputDialog(this, "Digite o ID ou nome do produto:");
+    private void buscarProduto() {
+        String termo = jTextField3.getText().trim();
         
-        if (termo == null || termo.trim().isEmpty()) {
+        if (termo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite o ID, nome ou descrição do produto!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        List<Produto> produtos = stockService.buscarProduto(termo.trim());
+        List<Produto> produtos = stockService.buscarProduto(termo);
         
         if (produtos.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Produto não encontrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -463,10 +516,10 @@ public class TelaOrdem extends javax.swing.JFrame {
         if (produtos.size() == 1) {
             produtoSelecionado = produtos.get(0);
         } else {
-            // Multiple products found, let user choose
             String[] opcoes = new String[produtos.size()];
             for (int i = 0; i < produtos.size(); i++) {
-                opcoes[i] = produtos.get(i).getCodigo() + " - " + produtos.get(i).getDescricao();
+                Produto p = produtos.get(i);
+                opcoes[i] = p.getCodigo() + " - " + p.getDescricao() + " (Disponível: " + p.getQuantidadeStock() + ")";
             }
             
             String escolha = (String) JOptionPane.showInputDialog(this, 
@@ -483,60 +536,98 @@ public class TelaOrdem extends javax.swing.JFrame {
             produtoSelecionado = produtos.get(index);
         }
         
-        // Ask for quantity
-        String quantidadeStr = JOptionPane.showInputDialog(this, 
-            "Digite a quantidade para " + produtoSelecionado.getDescricao() + ":");
+        javax.swing.JTextField quantidadeField = new javax.swing.JTextField("1");
         
-        if (quantidadeStr == null || quantidadeStr.trim().isEmpty()) {
-            return;
-        }
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         
-        try {
-            int quantidade = Integer.parseInt(quantidadeStr.trim());
-            
-            if (quantidade <= 0) {
-                JOptionPane.showMessageDialog(this, "Quantidade deve ser maior que zero!", "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
+        gbc.gridx = 0; gbc.gridy = 0;
+        panel.add(new javax.swing.JLabel("Código:"), gbc);
+        gbc.gridx = 1;
+        panel.add(new javax.swing.JLabel(produtoSelecionado.getCodigo()), gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 1;
+        panel.add(new javax.swing.JLabel("Descrição:"), gbc);
+        gbc.gridx = 1;
+        panel.add(new javax.swing.JLabel(produtoSelecionado.getDescricao()), gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 2;
+        panel.add(new javax.swing.JLabel("Preço:"), gbc);
+        gbc.gridx = 1;
+        panel.add(new javax.swing.JLabel(String.format("%.2f MT", produtoSelecionado.getPreco())), gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 3;
+        panel.add(new javax.swing.JLabel("Disponível:"), gbc);
+        gbc.gridx = 1;
+        panel.add(new javax.swing.JLabel(String.valueOf(produtoSelecionado.getQuantidadeStock())), gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 4;
+        panel.add(new javax.swing.JLabel("Quantidade:"), gbc);
+        gbc.gridx = 1;
+        panel.add(quantidadeField, gbc);
+        
+        int option = JOptionPane.showConfirmDialog(this, panel, "Adicionar Produto", JOptionPane.OK_CANCEL_OPTION);
+        
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                int quantidade = Integer.parseInt(quantidadeField.getText().trim());
+                
+                if (quantidade <= 0) {
+                    JOptionPane.showMessageDialog(this, "Quantidade deve ser maior que zero!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                if (!stockService.verificarDisponibilidade(produtoSelecionado.getId(), quantidade)) {
+                    JOptionPane.showMessageDialog(this, 
+                        "Quantidade insuficiente em estoque!\nDisponível: " + produtoSelecionado.getQuantidadeStock(), 
+                        "Erro", 
+                        JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                if (produtoSelecionado.getQuantidadeStock() - quantidade < produtoSelecionado.getStockMinimo()) {
+                    JOptionPane.showMessageDialog(this, 
+                        "ATENÇÃO: Notificar o Gerente!\n" +
+                        "O stock deste produto ficará abaixo do mínimo após esta venda.\n" +
+                        "Stock atual: " + produtoSelecionado.getQuantidadeStock() + "\n" +
+                        "Stock mínimo: " + produtoSelecionado.getStockMinimo(), 
+                        "Aviso de Stock Baixo", 
+                        JOptionPane.WARNING_MESSAGE);
+                }
+                
+                // Create ItemOrdem
+                ItemOrdem item = new ItemOrdem(produtoSelecionado, quantidade);
+                
+                itensOrdem.add(item);
+                
+                Object[] row = {
+                    item.getProdutoId(),
+                    item.getProdutoDescricao(),
+                    item.getQuantidade(),
+                    item.getPrecoUnitario(),
+                    item.getSubtotal()
+                };
+                tableModel.addRow(row);
+                
+                JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!");
+                jTextField3.setText(""); // Limpar campo de busca
+                
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Quantidade inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-            
-            // Check stock availability
-            if (!stockService.verificarDisponibilidade(produtoSelecionado.getId(), quantidade)) {
-                JOptionPane.showMessageDialog(this, 
-                    "Quantidade insuficiente em estoque!\nDisponível: " + produtoSelecionado.getQuantidadeStock(), 
-                    "Erro", 
-                    JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            // Create ItemOrdem
-            ItemOrdem item = new ItemOrdem(
-                produtoSelecionado.getId(),
-                produtoSelecionado.getCodigo(),
-                produtoSelecionado.getDescricao(),
-                quantidade,
-                produtoSelecionado.getPreco()
-            );
-            
-            itensOrdem.add(item);
-            
-            Object[] row = {
-                item.getProdutoId(),
-                item.getProdutoDescricao(),
-                item.getQuantidade(),
-                item.getPrecoUnitario(),
-                item.getSubtotal()
-            };
-            tableModel.addRow(row);
-            
-            JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!");
-            
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Quantidade inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void atualizarInformacoesUsuario() {
-        jLabel1.setText("Sistema Online | Usuário: " + usuarioLogado.getNome() + " (" + usuarioLogado.getId() + ")");
+    
+    private void limparFormulario() {
+        tableModel.setRowCount(0);
+        itensOrdem.clear();
+        clienteSelecionado = null;
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
     }
     
     private void configurarTabela() {
@@ -574,7 +665,7 @@ public class TelaOrdem extends javax.swing.JFrame {
                 if (evt.getClickCount() == 2) {
                     int column = jTable1.columnAtPoint(evt.getPoint());
                     if (column == 0 || column == 1) { // ID or Name column
-                        adicionarProduto();
+                        buscarProduto();
                     }
                 }
             }
@@ -587,8 +678,11 @@ public class TelaOrdem extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -596,5 +690,6 @@ public class TelaOrdem extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

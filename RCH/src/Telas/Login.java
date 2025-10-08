@@ -6,6 +6,7 @@ package Telas;
 
 import Controller.ControleGestorService;
 import Model.Usuario;
+import Util.FieldValidator;
 import javax.swing.JOptionPane;
 import Telas.TelaAdministrador;
 import Telas.TelaGerente;
@@ -26,6 +27,21 @@ public class Login extends javax.swing.JFrame {
         this.controleGestorService = new ControleGestorService();
        
         initComponents();
+        setupValidations();
+    }
+    
+    /**
+     * Configura validações em tempo real nos campos
+     */
+    private void setupValidations() {
+        // Validação do campo ID (obrigatório)
+        FieldValidator.addRequiredValidation(txtUsuario1, "ID do Usuário");
+        
+        // Validação do campo senha (mínimo 6 caracteres)
+        FieldValidator.addPasswordValidation(txtSenha1);
+        
+        // Adicionar Enter key para fazer login
+        txtSenha1.addActionListener(e -> realizarLogin());
     }
 
     /**
@@ -275,34 +291,36 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void realizarLogin() {
-        String usuario = txtUsuario1.getText().trim();
+        String usuarioId = txtUsuario1.getText().trim();
         String senha = new String(txtSenha1.getPassword());
         
         // Validações básicas
-        if (usuario.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, informe o usuário ou ID.", 
+        if (usuarioId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, informe o ID do usuário.", 
                                         "Erro", JOptionPane.ERROR_MESSAGE);
             txtUsuario1.requestFocus();
             return;
         }
         
-        if (senha.length() < 6) {
-            JOptionPane.showMessageDialog(this, "A senha deve ter no mínimo 6 dígitos.", 
+        if (senha.length() != 6) {
+            JOptionPane.showMessageDialog(this, "A senha deve ter exatamente 6 dígitos.", 
                                         "Erro", JOptionPane.ERROR_MESSAGE);
             txtSenha1.requestFocus();
             return;
         }
         
-        // Tentar autenticar
-        Usuario usuarioAutenticado = controleGestorService.autenticar(usuario, senha);
+        Usuario usuarioAutenticado = controleGestorService.autenticar(usuarioId, senha);
         
         if (usuarioAutenticado != null) {
             // Login bem-sucedido
+            JOptionPane.showMessageDialog(this, 
+                "Bem-vindo, " + usuarioAutenticado.getNome() + "!", 
+                "Login Bem-Sucedido", JOptionPane.INFORMATION_MESSAGE);
             abrirTelaPrincipal(usuarioAutenticado);
         } else {
             // Login falhou
             JOptionPane.showMessageDialog(this, 
-                "Usuário ou senha incorretos. Após 3 tentativas a conta será bloqueada.", 
+                "ID ou senha incorretos.\nApós 3 tentativas a conta será bloqueada.", 
                 "Erro de Autenticação", JOptionPane.ERROR_MESSAGE);
             txtSenha1.setText("");
             txtSenha1.requestFocus();
@@ -313,13 +331,14 @@ public class Login extends javax.swing.JFrame {
         // Fechar tela de login
         this.dispose();
         
-         switch (usuario.getTipoUsuario()) {
-        case ADMINISTRADOR -> new TelaAdministrador(usuario, controleGestorService).setVisible(true);
-        case GERENTE -> new TelaGerente(usuario, controleGestorService).setVisible(true);
-        case VENDEDOR -> new TelaVendedor(usuario, controleGestorService).setVisible(true);
-        case CAIXA -> new TelaCaixa(usuario, controleGestorService).setVisible(true);
+        switch (usuario.getTipoUsuario()) {
+            case ADMINISTRADOR -> new TelaAdministrador(usuario, controleGestorService).setVisible(true);
+            case GERENTE -> new TelaGerente(usuario, controleGestorService).setVisible(true);
+            case VENDEDOR -> new TelaVendedor(usuario, controleGestorService).setVisible(true);
+            case CAIXA -> new TelaCaixa(usuario, controleGestorService).setVisible(true);
+        }
     }
-}
+
     /**
      * @param args the command line arguments
      */

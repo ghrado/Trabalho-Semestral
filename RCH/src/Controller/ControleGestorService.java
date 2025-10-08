@@ -42,11 +42,42 @@ public class ControleGestorService implements Gerenciavel<Usuario> {
     }
     
     private void criarAdministradorPadrao() {
-        Administrador admin = new Administrador("Administrador", "Sistema", "000000000", 
-                                               "000000000", "admin@sistema.com");
+        
+        // Administrador
+        Administrador admin = new Administrador("Administrador", "Sistema Central", "000000000", 
+                                               "840000000", "admin@rch.co.mz");
+        admin.setId("Admin");
+        admin.setUsuario("admin");
         usuarios.put(admin.getId(), admin);
         usuariosVector.add(admin);
         usuariosArrayList.add(admin);
+        
+        // Gerente - Calisa
+        Gerente calisa = new Gerente("Calisa Muianga", "Av. Julius Nyerere, 1234", "110045678901A",
+                                     "845551234", "calisa@rch.co.mz");
+        calisa.setId("GE001");
+        calisa.setUsuario("calisa.muianga");
+        usuarios.put(calisa.getId(), calisa);
+        usuariosVector.add(calisa);
+        usuariosArrayList.add(calisa);
+        
+        // Caixa - Rogeria
+        Caixa rogeria = new Caixa("Rogeria Sitoe", "Bairro Central, Rua 25", "110056789012B",
+                                  "845552345", "rogeria@rch.co.mz");
+        rogeria.setId("CX001");
+        rogeria.setUsuario("rogeria.sitoe");
+        usuarios.put(rogeria.getId(), rogeria);
+        usuariosVector.add(rogeria);
+        usuariosArrayList.add(rogeria);
+        
+        // Vendedor - Henrique
+        Vendedor henrique = new Vendedor("Henrique Macie", "Matola, Av. da Independencia", "110067890123C",
+                                         "845553456", "henrique@rch.co.mz");
+        henrique.setId("VN001");
+        henrique.setUsuario("henrique.macie");
+        usuarios.put(henrique.getId(), henrique);
+        usuariosVector.add(henrique);
+        usuariosArrayList.add(henrique);
     }
     
     // Implementação da interface Gerenciavel

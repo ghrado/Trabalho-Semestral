@@ -14,6 +14,9 @@ import Telas.Relatorios.TelaRelatorios;
 import Telas.ControleGestor.TelaControleGestor;
 import Telas.GestaoStock.TelaGestaoStock;
 import Telas.FechoCaixa.TelaFechoCaixa;
+import Telas.stock.TelaStockOpcoes;
+import Telas.Controle.TelaControleOpcoes;
+import Telas.Cach.TelaFechoCaixa;
 
 public class TelaAdministrador extends javax.swing.JFrame {
     private Usuario usuarioLogado;
@@ -46,6 +49,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         jDesktopPane2 = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         salesBtn = new javax.swing.JButton();
         managerBtn = new javax.swing.JButton();
@@ -56,15 +60,20 @@ public class TelaAdministrador extends javax.swing.JFrame {
         reportsBtn = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        CashClosingBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gestão de Vendas - Administrador");
         setPreferredSize(new java.awt.Dimension(700, 550));
 
-        jDesktopPane2.setPreferredSize(new java.awt.Dimension(800, 600));
+        jDesktopPane2.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Sistema Online | Usuário: ");
+
+        jLabel6.setText("Data:  | Hora: ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -73,14 +82,18 @@ public class TelaAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -112,12 +125,31 @@ public class TelaAdministrador extends javax.swing.JFrame {
         jLabel3.setText("Stock");
 
         casherBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/IconsDB/icons8-safe-in-64.png"))); // NOI18N
+        casherBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                casherBtnActionPerformed(evt);
+            }
+        });
 
         reportsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/IconsDB/icons8-circle-chart-64.png"))); // NOI18N
+        reportsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportsBtnActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Casher");
 
         jLabel9.setText("Reports");
+
+        CashClosingBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/IconsDB/icons8-purchase-order-64.png"))); // NOI18N
+        CashClosingBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CashClosingBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Cash Closing");
 
         jDesktopPane2.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -130,6 +162,9 @@ public class TelaAdministrador extends javax.swing.JFrame {
         jDesktopPane2.setLayer(reportsBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(CashClosingBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
@@ -139,52 +174,75 @@ public class TelaAdministrador extends javax.swing.JFrame {
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(salesBtn)
-                        .addGap(93, 93, 93)
-                        .addComponent(managerBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                        .addComponent(stockBtn)
-                        .addGap(95, 95, 95))
+                        .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(managerBtn)
+                            .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(salesBtn)))
+                        .addGap(65, 65, 65)
+                        .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(casherBtn)
+                            .addComponent(CashClosingBtn)))
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
+                        .addGap(73, 73, 73)
                         .addComponent(jLabel7)
-                        .addGap(122, 122, 122)
+                        .addGap(101, 101, 101)
+                        .addComponent(jLabel8))
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(110, 110, 110)))
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane2Layout.createSequentialGroup()
-                        .addComponent(casherBtn)
-                        .addGap(93, 93, 93)
-                        .addComponent(reportsBtn)
-                        .addGap(81, 81, 81))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(120, 120, 120)
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                                .addGap(259, 389, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addGap(127, 127, 127))
+                            .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(stockBtn)
+                                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel3))
+                                    .addComponent(reportsBtn))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
                         .addComponent(jLabel9)
-                        .addGap(95, 95, 95))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jDesktopPane2Layout.setVerticalGroup(
             jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                .addContainerGap(266, Short.MAX_VALUE)
-                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(salesBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(managerBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(stockBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(reportsBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(casherBtn, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(121, 121, 121)
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(salesBtn)
+                    .addComponent(casherBtn)
+                    .addComponent(stockBtn))
                 .addGap(18, 18, 18)
-                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel9)
-                        .addComponent(jLabel3)))
-                .addGap(202, 202, 202)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(managerBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(reportsBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(CashClosingBtn, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4))
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))))
+                .addGap(191, 191, 191)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -212,34 +270,33 @@ public class TelaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_salesBtnActionPerformed
 
     private void managerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managerBtnActionPerformed
-        TelaControleGestor telaControleGestor = new TelaControleGestor(usuarioLogado, controleGestorService);
-        telaControleGestor.setVisible(true);
+        TelaControleOpcoes telaControle = new TelaControleOpcoes(usuarioLogado, controleGestorService);
+        telaControle.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_managerBtnActionPerformed
 
     private void stockBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockBtnActionPerformed
-        TelaGestaoStock telaStock = new TelaGestaoStock(usuarioLogado, stockService);
+        TelaStockOpcoes telaStock = new TelaStockOpcoes(usuarioLogado, stockService);
         telaStock.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_stockBtnActionPerformed
-    
-    private void casherBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        Telas.Caixa.TelaCaixaOpcoes telaCaixaOpcoes = new Telas.Caixa.TelaCaixaOpcoes(usuarioLogado, caixaService, vendasService);
-        telaCaixaOpcoes.setVisible(true);
+
+    private void reportsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsBtnActionPerformed
+        JOptionPane.showMessageDialog(this, "Módulo de Relatórios em desenvolvimento", 
+                                    "Informação", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_reportsBtnActionPerformed
+
+    private void CashClosingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CashClosingBtnActionPerformed
+        TelaFechoCaixa telaFecho = new TelaFechoCaixa(usuarioLogado, caixaService);
+        telaFecho.setVisible(true);
         this.dispose();
-    }
-    
-    private void reportsBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        TelaRelatorios telaRelatorios = new TelaRelatorios(usuarioLogado, relatoriosService);
-        telaRelatorios.setVisible(true);
+    }//GEN-LAST:event_CashClosingBtnActionPerformed
+
+    private void casherBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casherBtnActionPerformed
+        Telas.Caixa.TelaCaixaOpcoes telaCaixa = new Telas.Caixa.TelaCaixaOpcoes(usuarioLogado, caixaService, vendasService);
+        telaCaixa.setVisible(true);
         this.dispose();
-    }
-    
-    private void fechoCaixaBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        TelaFechoCaixa telaFechoCaixa = new TelaFechoCaixa(usuarioLogado, caixaService);
-        telaFechoCaixa.setVisible(true);
-        this.dispose();
-    }
+    }//GEN-LAST:event_casherBtnActionPerformed
     
     private void alterarSenha() {
         JPasswordField senhaAtual = new JPasswordField();
@@ -284,11 +341,15 @@ public class TelaAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CashClosingBtn;
     private javax.swing.JButton casherBtn;
     private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

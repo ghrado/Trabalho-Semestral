@@ -18,8 +18,7 @@ public class ClienteSingular extends Cliente{
         this.tipoCliente = TipoCliente.SINGULAR;
     }
     
-    public ClienteSingular(String nome, String bilheteIdentidade, String telefone, 
-                          String email, String endereco) {
+    public ClienteSingular(String nome, String telefone, String email, String endereco, String bilheteIdentidade) {
         super(nome, telefone, email, endereco, TipoCliente.SINGULAR);
         this.bilheteIdentidade = bilheteIdentidade;
     }
