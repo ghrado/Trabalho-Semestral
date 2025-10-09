@@ -50,11 +50,11 @@ public class TelaClientes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        ClientesTb = new javax.swing.JTable();
+        CadastrarClienteBtn = new javax.swing.JButton();
+        GerenciarClienteBtn = new javax.swing.JButton();
+        ProcurarClienteBtn = new javax.swing.JButton();
+        VoltarBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
 
@@ -88,7 +88,7 @@ public class TelaClientes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ClientesTb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -108,33 +108,38 @@ public class TelaClientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(ClientesTb);
+        if (ClientesTb.getColumnModel().getColumnCount() > 0) {
+            ClientesTb.getColumnModel().getColumn(0).setResizable(false);
+            ClientesTb.getColumnModel().getColumn(1).setResizable(false);
+            ClientesTb.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jButton1.setText("Cadastrar Cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CadastrarClienteBtn.setText("Cadastrar Cliente");
+        CadastrarClienteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CadastrarClienteBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Gerenciar Cliente");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        GerenciarClienteBtn.setText("Gerenciar Cliente");
+        GerenciarClienteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                GerenciarClienteBtnActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Procurar Cliente");
-
-        jButton4.setText("Voltar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        ProcurarClienteBtn.setText("Procurar Cliente");
+        ProcurarClienteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                ProcurarClienteBtnActionPerformed(evt);
+            }
+        });
+
+        VoltarBtn.setText("Voltar");
+        VoltarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarBtnActionPerformed(evt);
             }
         });
 
@@ -153,10 +158,10 @@ public class TelaClientes extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(VoltarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ProcurarClienteBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CadastrarClienteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(GerenciarClienteBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(196, 196, 196)
                         .addComponent(jLabel2)))
@@ -172,13 +177,13 @@ public class TelaClientes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
-                        .addComponent(jButton3)
+                        .addComponent(ProcurarClienteBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(CadastrarClienteBtn)
                         .addGap(39, 39, 39)
-                        .addComponent(jButton2)
+                        .addComponent(GerenciarClienteBtn)
                         .addGap(39, 39, 39)
-                        .addComponent(jButton4))
+                        .addComponent(VoltarBtn))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(56, 56, 56)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -187,19 +192,23 @@ public class TelaClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CadastrarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarClienteBtnActionPerformed
         cadastrarCliente();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CadastrarClienteBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void GerenciarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerenciarClienteBtnActionPerformed
         gerenciarCliente();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_GerenciarClienteBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void VoltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarBtnActionPerformed
         TelaVendas telaVendas = new TelaVendas(usuarioLogado, vendasService, null);
         telaVendas.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_VoltarBtnActionPerformed
+
+    private void ProcurarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProcurarClienteBtnActionPerformed
+        procurarCliente();
+    }//GEN-LAST:event_ProcurarClienteBtnActionPerformed
     
     private void cadastrarCliente() {
         String[] opcoes = {"Cliente Singular", "Cliente Empresa"};
@@ -290,7 +299,7 @@ public class TelaClientes extends javax.swing.JFrame {
     }
     
     private void gerenciarCliente() {
-        int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = ClientesTb.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Selecione um cliente na tabela!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
@@ -452,7 +461,7 @@ public class TelaClientes extends javax.swing.JFrame {
     }
     
     private void configurarBotaoProcurar() {
-        jButton3.addActionListener(e -> procurarCliente());
+        ProcurarClienteBtn.addActionListener(e -> procurarCliente());
     }
     
     private boolean validarEmail(String email) {
@@ -473,7 +482,7 @@ public class TelaClientes extends javax.swing.JFrame {
                 return false;
             }
         };
-        jTable1.setModel(tableModel);
+        ClientesTb.setModel(tableModel);
     }
     
     private void carregarClientes() {
@@ -495,16 +504,16 @@ public class TelaClientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton CadastrarClienteBtn;
+    private javax.swing.JTable ClientesTb;
+    private javax.swing.JButton GerenciarClienteBtn;
+    private javax.swing.JButton ProcurarClienteBtn;
+    private javax.swing.JButton VoltarBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

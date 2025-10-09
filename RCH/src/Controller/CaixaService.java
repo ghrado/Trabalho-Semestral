@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.Fatura;
 import Model.Ordem;
 import Model.Pagamento;
 import Util.AuditService;
@@ -190,5 +191,25 @@ public class CaixaService {
         if (pagamento != null) {
             auditService.registrarAcao(usuarioId, "", acao, "Pagamento", pagamentoId, detalhes);
         }
+    }
+
+    List<Fatura> getFaturasPorTipoPagamentoEPeriodo(Fatura.TipoPagamento tipoPagamento, LocalDateTime inicioDateTime, LocalDateTime fimDateTime) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    List<Fatura> listarFaturas() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    double getTotalVendasPorData(LocalDate data) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    Map<Fatura.TipoPagamento, Double> getLancamentosPorData(LocalDate data) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    List<Fatura> getFaturasPorPeriodo(LocalDateTime inicioDateTime, LocalDateTime fimDateTime) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

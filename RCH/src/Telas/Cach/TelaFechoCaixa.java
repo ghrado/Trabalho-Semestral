@@ -5,7 +5,9 @@
 package Telas.Cach;
 
 import Controller.CaixaService;
+import Controller.ControleGestorService;
 import Model.Usuario;
+import Telas.TelaAdministrador;
 import Util.FieldValidator;
 import javax.swing.JOptionPane;
 import java.time.LocalDateTime;
@@ -276,8 +278,9 @@ public class TelaFechoCaixa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VoltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarBtnActionPerformed
-        Telas.Caixa.TelaCaixaOpcoes telaCaixaOpcoes = new Telas.Caixa.TelaCaixaOpcoes(usuarioLogado, caixaService, null);
-        telaCaixaOpcoes.setVisible(true);
+
+         TelaAdministrador telaAdmin = new TelaAdministrador(usuarioLogado, controleGestorService);
+        telaAdmin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_VoltarBtnActionPerformed
 

@@ -10,10 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import Telas.vendas.TelaVendas;
 import Telas.Caixa.TelaCaixaOpcoes;
-import Telas.Relatorios.TelaRelatorios;
-import Telas.ControleGestor.TelaControleGestor;
-import Telas.GestaoStock.TelaGestaoStock;
-import Telas.FechoCaixa.TelaFechoCaixa;
 import Telas.stock.TelaStockOpcoes;
 import Telas.Controle.TelaControleOpcoes;
 import Telas.Cach.TelaFechoCaixa;
@@ -174,11 +170,10 @@ public class TelaAdministrador extends javax.swing.JFrame {
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
                         .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(managerBtn)
-                            .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(salesBtn)))
+                            .addComponent(salesBtn))
                         .addGap(65, 65, 65)
                         .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(casherBtn)

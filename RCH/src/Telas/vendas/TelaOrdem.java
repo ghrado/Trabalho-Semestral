@@ -62,18 +62,18 @@ public class TelaOrdem extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        OrdemTb = new javax.swing.JTable();
+        BuscarOrdemBtn = new javax.swing.JButton();
+        BuscarOrdemFld = new javax.swing.JTextField();
+        GerarCotacaoBtn = new javax.swing.JButton();
+        GerarOrdemBtn = new javax.swing.JButton();
+        VoltarBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        ClienteFld = new javax.swing.JTextField();
+        ClienteBuscarBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        ProdutoTld = new javax.swing.JTextField();
+        ProdutoBuscarBtn = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -117,7 +117,7 @@ public class TelaOrdem extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        OrdemTb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -129,40 +129,55 @@ public class TelaOrdem extends javax.swing.JFrame {
                 "ID Produto", "Nome produto", "Quantidade Produdo", "Preço"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(OrdemTb);
 
-        jButton1.setText("Buscar Ordem");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BuscarOrdemBtn.setText("Buscar Ordem");
+        BuscarOrdemBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BuscarOrdemBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Gerar Cotacao");
+        GerarCotacaoBtn.setText("Gerar Cotacao");
+        GerarCotacaoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GerarCotacaoBtnActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Gerar Ordem");
+        GerarOrdemBtn.setText("Gerar Ordem");
+        GerarOrdemBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GerarOrdemBtnActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Voltar");
+        VoltarBtn.setText("Voltar");
+        VoltarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarBtnActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Cliente:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        ClienteFld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                ClienteFldActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Buscar ");
+        ClienteBuscarBtn.setText("Buscar ");
 
         jLabel3.setText("Produto:");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        ProdutoTld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                ProdutoTldActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Buscar");
+        ProdutoBuscarBtn.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,24 +193,24 @@ public class TelaOrdem extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField3))
+                                .addComponent(ProdutoTld))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2)))
+                                .addComponent(ClienteFld)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton5)
-                            .addComponent(jButton6))))
+                            .addComponent(ClienteBuscarBtn)
+                            .addComponent(ProdutoBuscarBtn))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1))
+                        .addComponent(BuscarOrdemBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BuscarOrdemFld))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(GerarOrdemBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(VoltarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GerarCotacaoBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
@@ -204,30 +219,30 @@ public class TelaOrdem extends javax.swing.JFrame {
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5))
+                        .addComponent(BuscarOrdemFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ClienteBuscarBtn))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ClienteFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jButton1)
+                        .addComponent(BuscarOrdemBtn)
                         .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6))
+                            .addComponent(ProdutoTld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProdutoBuscarBtn))
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(GerarCotacaoBtn)
                         .addGap(61, 61, 61)
-                        .addComponent(jButton3)
+                        .addComponent(GerarOrdemBtn)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton4))
+                        .addComponent(VoltarBtn))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -236,31 +251,45 @@ public class TelaOrdem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BuscarOrdemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarOrdemBtnActionPerformed
         buscarOrdem();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BuscarOrdemBtnActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void ClienteFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteFldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_ClienteFldActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void ProdutoTldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdutoTldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_ProdutoTldActionPerformed
+
+    private void GerarOrdemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerarOrdemBtnActionPerformed
+        gerarOrdem();
+    }//GEN-LAST:event_GerarOrdemBtnActionPerformed
+
+    private void GerarCotacaoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerarCotacaoBtnActionPerformed
+        gerarCotacao();
+    }//GEN-LAST:event_GerarCotacaoBtnActionPerformed
+
+    private void VoltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarBtnActionPerformed
+        TelaVendas telaVendas = new TelaVendas(usuarioLogado, vendasService, stockService);
+            telaVendas.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_VoltarBtnActionPerformed
     
     private void configurarBotoes() {
-        jButton5.addActionListener(e -> buscarCliente());
+        ClienteBuscarBtn.addActionListener(e -> buscarCliente());
         
-        jButton6.addActionListener(e -> buscarProduto());
+        ProdutoBuscarBtn.addActionListener(e -> buscarProduto());
         
         // Gerar Cotação button
-        jButton2.addActionListener(e -> gerarCotacao());
+        GerarCotacaoBtn.addActionListener(e -> gerarCotacao());
         
         // Gerar Ordem/Fatura button
-        jButton3.addActionListener(e -> gerarOrdem());
+        GerarOrdemBtn.addActionListener(e -> gerarOrdem());
         
         // Voltar button
-        jButton4.addActionListener(e -> {
+        VoltarBtn.addActionListener(e -> {
             TelaVendas telaVendas = new TelaVendas(usuarioLogado, vendasService, stockService);
             telaVendas.setVisible(true);
             this.dispose();
@@ -268,7 +297,7 @@ public class TelaOrdem extends javax.swing.JFrame {
     }
     
     private void buscarCliente() {
-        String termo = jTextField2.getText().trim();
+        String termo = ClienteFld.getText().trim();
         
         if (termo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Digite o BI, NUIT, Nome ou ID do cliente!", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -280,7 +309,7 @@ public class TelaOrdem extends javax.swing.JFrame {
         
         if (cliente != null) {
             clienteSelecionado = cliente;
-            jTextField2.setText(cliente.getNome() + " (ID: " + cliente.getId() + ")");
+            ClienteFld.setText(cliente.getNome() + " (ID: " + cliente.getId() + ")");
             JOptionPane.showMessageDialog(this, 
                 "Cliente encontrado!\n" +
                 "ID: " + cliente.getId() + "\n" +
@@ -311,7 +340,7 @@ public class TelaOrdem extends javax.swing.JFrame {
             
             if (encontrado != null) {
                 clienteSelecionado = encontrado;
-                jTextField2.setText(encontrado.getNome() + " (ID: " + encontrado.getId() + ")");
+                ClienteFld.setText(encontrado.getNome() + " (ID: " + encontrado.getId() + ")");
                 JOptionPane.showMessageDialog(this, 
                     "Cliente encontrado!\n" +
                     "ID: " + encontrado.getId() + "\n" +
@@ -326,7 +355,7 @@ public class TelaOrdem extends javax.swing.JFrame {
     }
     
     private void gerarCotacao() {
-        String codigo = jTextField1.getText().trim();
+        String codigo = BuscarOrdemFld.getText().trim();
         
         if (codigo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Digite o código da ordem!", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -395,7 +424,7 @@ public class TelaOrdem extends javax.swing.JFrame {
     }
     
     private void buscarOrdem() {
-        String codigo = jTextField1.getText().trim();
+        String codigo = BuscarOrdemFld.getText().trim();
         
         if (codigo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Digite o ID da ordem!", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -429,7 +458,7 @@ public class TelaOrdem extends javax.swing.JFrame {
             Cliente cliente = vendasService.buscar(ordem.getClienteId());
             if (cliente != null) {
                 clienteSelecionado = cliente;
-                jTextField2.setText(cliente.getNome() + " (ID: " + cliente.getId() + ")");
+                ClienteFld.setText(cliente.getNome() + " (ID: " + cliente.getId() + ")");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Ordem não encontrada!", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -475,11 +504,11 @@ public class TelaOrdem extends javax.swing.JFrame {
                 }
             };
         }
-        jTable1.setModel(tableModel);
+        OrdemTb.setModel(tableModel);
         
         // Add listener for quantity changes
         if (editavel) {
-            jTable1.getModel().addTableModelListener(e -> {
+            OrdemTb.getModel().addTableModelListener(e -> {
                 if (e.getColumn() == 2) { // Quantity column
                     int row = e.getFirstRow();
                     try {
@@ -498,7 +527,7 @@ public class TelaOrdem extends javax.swing.JFrame {
     }
     
     private void buscarProduto() {
-        String termo = jTextField3.getText().trim();
+        String termo = ProdutoTld.getText().trim();
         
         if (termo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Digite o ID, nome ou descrição do produto!", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -613,7 +642,7 @@ public class TelaOrdem extends javax.swing.JFrame {
                 tableModel.addRow(row);
                 
                 JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!");
-                jTextField3.setText(""); // Limpar campo de busca
+                ProdutoTld.setText(""); // Limpar campo de busca
                 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Quantidade inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -625,9 +654,9 @@ public class TelaOrdem extends javax.swing.JFrame {
         tableModel.setRowCount(0);
         itensOrdem.clear();
         clienteSelecionado = null;
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
+        BuscarOrdemFld.setText("");
+        ClienteFld.setText("");
+        ProdutoTld.setText("");
     }
     
     private void configurarTabela() {
@@ -639,10 +668,10 @@ public class TelaOrdem extends javax.swing.JFrame {
                 return column == 2;
             }
         };
-        jTable1.setModel(tableModel);
+        OrdemTb.setModel(tableModel);
         
         // Add table model listener for quantity changes
-        jTable1.getModel().addTableModelListener(e -> {
+        OrdemTb.getModel().addTableModelListener(e -> {
             if (e.getColumn() == 2) { // Quantity column
                 int row = e.getFirstRow();
                 try {
@@ -659,11 +688,11 @@ public class TelaOrdem extends javax.swing.JFrame {
         });
         
         // Add double-click listener for product search in ID and Name columns
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        OrdemTb.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (evt.getClickCount() == 2) {
-                    int column = jTable1.columnAtPoint(evt.getPoint());
+                    int column = OrdemTb.columnAtPoint(evt.getPoint());
                     if (column == 0 || column == 1) { // ID or Name column
                         buscarProduto();
                     }
@@ -673,12 +702,16 @@ public class TelaOrdem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton BuscarOrdemBtn;
+    private javax.swing.JTextField BuscarOrdemFld;
+    private javax.swing.JButton ClienteBuscarBtn;
+    private javax.swing.JTextField ClienteFld;
+    private javax.swing.JButton GerarCotacaoBtn;
+    private javax.swing.JButton GerarOrdemBtn;
+    private javax.swing.JTable OrdemTb;
+    private javax.swing.JButton ProdutoBuscarBtn;
+    private javax.swing.JTextField ProdutoTld;
+    private javax.swing.JButton VoltarBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -686,10 +719,10 @@ public class TelaOrdem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
+    private void atualizarInformacoesUsuario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -277,7 +277,12 @@ public class UsuarioService implements Gerenciavel<Usuario> {
      * Constrói objeto Usuario a partir do ResultSet
      */
     private Usuario construirUsuarioFromResultSet(ResultSet rs) throws SQLException {
-        Usuario usuario = new Usuario();
+        Usuario usuario = new Usuario() {
+            @Override
+            public boolean temPermissao(String funcionalidade) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        };
         usuario.setId(rs.getString("id"));
         usuario.setNome(rs.getString("nome"));
         usuario.setUsername(rs.getString("username"));

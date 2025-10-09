@@ -8,7 +8,7 @@ import Controller.ControleGestorService;
 import Model.Usuario;
 import javax.swing.JOptionPane;
 import Telas.TelaAdministrador;
-import Telas.TelaGerenciarUsuario;
+import Telas.Controle.TelaGerenciarUsuario;
 
 /**
  *
@@ -52,7 +52,7 @@ public class TelaControleOpcoes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         CadastrarUsuarioBtn = new javax.swing.JButton();
         GerenciarUsuarioBtn = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        VoltarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,10 +99,10 @@ public class TelaControleOpcoes extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Voltar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        VoltarBtn.setText("Voltar");
+        VoltarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                VoltarBtnActionPerformed(evt);
             }
         });
 
@@ -113,7 +113,7 @@ public class TelaControleOpcoes extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(VoltarBtn)
                 .addGap(51, 51, 51))
             .addGroup(layout.createSequentialGroup()
                 .addGap(167, 167, 167)
@@ -130,7 +130,7 @@ public class TelaControleOpcoes extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(GerenciarUsuarioBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(VoltarBtn)
                 .addGap(34, 34, 34)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -150,19 +150,19 @@ public class TelaControleOpcoes extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_GerenciarUsuarioBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void VoltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarBtnActionPerformed
         // Voltar para tela do administrador
         TelaAdministrador telaAdmin = new TelaAdministrador(usuarioLogado, controleGestorService);
         telaAdmin.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_VoltarBtnActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CadastrarUsuarioBtn;
     private javax.swing.JButton GerenciarUsuarioBtn;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton VoltarBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

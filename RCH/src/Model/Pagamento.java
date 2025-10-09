@@ -21,6 +21,16 @@ public class Pagamento extends UniversalObject {
     private LocalDateTime dataPagamento;
     private String usuarioId;
     private String usuarioNome;
+
+    @Override
+    public boolean equals(Object obj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     public enum TipoPagamento {
         DINHEIRO, CARTAO, TRANSFERENCIA

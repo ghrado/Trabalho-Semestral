@@ -178,11 +178,40 @@ public class TelaLancamentoPagamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void EditarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarBtnActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione uma ordem na tabela!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String codigo = (String) tableModel.getValueAt(selectedRow, 0);
+        Ordem ordem = vendasService.buscarOrdem(codigo);
+        
+        if (ordem != null) {
+            String[] metodosPagamento = {"Dinheiro", "Cartão", "Transferência", "M-Pesa"};
+            String metodo = (String) JOptionPane.showInputDialog(this, 
+                "Selecione o método de pagamento:", 
+                "Processar Pagamento",
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                metodosPagamento, 
+                metodosPagamento[0]);
+            
+            if (metodo != null) {
+                if (caixaService.processarPagamento(ordem, metodo)) {
+                    JOptionPane.showMessageDialog(this, "Pagamento processado com sucesso!");
+                    carregarOrdensPendentes();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao processar pagamento!", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
     }//GEN-LAST:event_EditarBtnActionPerformed
 
     private void VoltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarBtnActionPerformed
-        // TODO add your handling code here:
+         TelaCaixaOpcoes telaCaixaOpcoes = new TelaCaixaOpcoes(usuarioLogado, caixaService, vendasService);
+        telaCaixaOpcoes.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_VoltarBtnActionPerformed
 
     private void ApagarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApagarBtnActionPerformed
@@ -194,7 +223,25 @@ public class TelaLancamentoPagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_InserirBtnActionPerformed
 
     private void BuscarFacturaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarFacturaBtnActionPerformed
-        // TODO add your handling code here:
+        String codigo = jTextField1.getText().trim();
+        
+        if (codigo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite o código da ordem!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Ordem ordem = vendasService.buscarOrdem(codigo);
+        
+        if (ordem != null) {
+            JOptionPane.showMessageDialog(this, 
+                "Ordem encontrada!\n" +
+                "Código: " + ordem.getCodigo() + "\n" +
+                "Cliente: " + ordem.getCliente().getNome() + "\n" +
+                "Valor Total: " + ordem.getValorTotal() + "\n" +
+                "Status: " + ordem.getStatus());
+        } else {
+            JOptionPane.showMessageDialog(this, "Ordem não encontrada!", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_BuscarFacturaBtnActionPerformed
 
     private void atualizarInformacoesUsuario() {
@@ -228,65 +275,7 @@ public class TelaLancamentoPagamento extends javax.swing.JFrame {
         }
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        String codigo = jTextField1.getText().trim();
-        
-        if (codigo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Digite o código da ordem!", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        Ordem ordem = vendasService.buscarOrdem(codigo);
-        
-        if (ordem != null) {
-            JOptionPane.showMessageDialog(this, 
-                "Ordem encontrada!\n" +
-                "Código: " + ordem.getCodigo() + "\n" +
-                "Cliente: " + ordem.getCliente().getNome() + "\n" +
-                "Valor Total: " + ordem.getValorTotal() + "\n" +
-                "Status: " + ordem.getStatus());
-        } else {
-            JOptionPane.showMessageDialog(this, "Ordem não encontrada!", "Aviso", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-    
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Selecione uma ordem na tabela!", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        String codigo = (String) tableModel.getValueAt(selectedRow, 0);
-        Ordem ordem = vendasService.buscarOrdem(codigo);
-        
-        if (ordem != null) {
-            String[] metodosPagamento = {"Dinheiro", "Cartão", "Transferência", "M-Pesa"};
-            String metodo = (String) JOptionPane.showInputDialog(this, 
-                "Selecione o método de pagamento:", 
-                "Processar Pagamento",
-                JOptionPane.QUESTION_MESSAGE, 
-                null, 
-                metodosPagamento, 
-                metodosPagamento[0]);
-            
-            if (metodo != null) {
-                if (caixaService.processarPagamento(ordem, metodo)) {
-                    JOptionPane.showMessageDialog(this, "Pagamento processado com sucesso!");
-                    carregarOrdensPendentes();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Erro ao processar pagamento!", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-    }
-    
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        TelaCaixaOpcoes telaCaixaOpcoes = new TelaCaixaOpcoes(usuarioLogado, caixaService, vendasService);
-        telaCaixaOpcoes.setVisible(true);
-        this.dispose();
-    }
-
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApagarBtn;
     private javax.swing.JButton BuscarFacturaBtn;
